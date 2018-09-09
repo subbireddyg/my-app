@@ -9,9 +9,9 @@ public class Calculator {
 	 * @return int
 	 */
 	public int add(int i, int j){
-		Starting s =null;
+		String s =null;
 		s.toString();
-	        int a =10;
+	        int a = 10;
 		int b = i/0;
 		return i+j;
 	}
