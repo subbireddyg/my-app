@@ -25,12 +25,12 @@
 	</dependencies>
 	<distributionManagement>
 		<snapshotRepository>
-                       <id>snapshots</id>
+                       <id>nexus</id>
                         <url>http://172.31.41.172:8081/nexus/content/repositories/snapshots</url>
                 </snapshotRepository>
 		
 	        <repository>
-                        <id>releases</id>
+                        <id>nexus</id>
                         <url>http://172.31.41.172:8081/nexus/content/repositories/releases</url>
                 </repository>
   	</distributionManagement>
