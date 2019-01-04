@@ -4,8 +4,8 @@ node{
    
    stage('Git Checkout') {
        git credentialsId: 'git', 
-       url: 'https://github.com/subbireddyg/my-app',
-       branch: "${paramsgitBranch}"
+       url: 'https://github.com/subbireddyg/my-app'
+       
                                   
    }
    
