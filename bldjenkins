@@ -1,0 +1,26 @@
+node {
+  
+  properties(
+      [parameters(
+          [choice(choices: ['master', 'feature-1', 'developer-2'], 
+          description: 'choose branch to build', 
+          name: 'gitBranch')])])
+  stage('Git Checkout') {
+   git credentialsId: 'git',
+       url: 'https://github.com/subbireddyg/my-app',
+       branch: "${params.gitBranch}"}
+   stage('Buuild Code'){
+   sh label: '', script: 'mvn clean package'
+                       }
+   stage ('Deploy Tomcat'){
+       sh 'mv target/*.war target/myweb.war'
+       sshagent(['dev']) { 
+           sh 'ssh -v -o StrictHostKeyChecking=no ec2-user@172.31.33.113 rm -rf /opt/tomcat8/webapps/myweb*'
+           sh 'scp target/myweb.war ec2-user@172.31.33.113:/opt/tomcat8/webapps/'
+           sh 'ssh ec2-user@172.31.33.113 /opt/tomcat8/bin/startup.sh'
+                           }}
+    stage('Slack Notification') {                       
+            slackSend channel: '#gsrbld', color: 'good', 
+                                message: "Job - ${env.JOB_NAME}, is deployed successfully build url is ${env.BUILD_URL}"            
+                                 
+}}
